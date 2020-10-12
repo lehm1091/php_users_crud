@@ -9,7 +9,6 @@ permitUsers();
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Usuarios</title>
 
@@ -23,7 +22,7 @@ permitUsers();
 
 </head>
 
-<BODY>
+<body>
 
 
     <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Vista/navBar.php'; ?>
@@ -295,7 +294,7 @@ permitUsers();
                         }
 
                         let edit = `<a class='text-primary editLink' href="#" style="margin-right:20px" onclick="editUser(${data})" ><i class="fa fa-lg  fa-pencil"></i></a>`;
-                        let del = `<a class="text-danger deleteLink" id="delete${data}" href="#" onclick="deleteUser(${data})"><i class="fa fa-lg  fa-trash"></i></a>`;
+                        let del = `<a class="text-primary deleteLink" id="delete${data}" href="#" onclick="deleteUser(${data})"><i class="fa fa-lg  fa-trash"></i></a>`;
                         if (<?php echo (isAdmin()  and !isSuperAdmin()) ? 1 : 0 ?>) {
                             return `${edit}`;
                         } else if (<?php echo (isSuperAdmin()) ? 1 : 0 ?>) {
@@ -543,6 +542,6 @@ permitUsers();
             return JSON.parse(data);
         }
     </script>
-</BODY>
+</body>
 
-</HTML>
+</html>
