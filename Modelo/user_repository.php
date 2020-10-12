@@ -64,6 +64,26 @@ class UserRepository
     {
         try {
             $db = Connection::connect();
+            $insert = $db->prepare('UPDATE  users SET email=:email ,first_name  = :first_name ,last_name =  :last_name,tel_number = :tel_number WHERE user_id=:user_id');
+            $insert->bindValue('email', $user->email);
+            $insert->bindValue('first_name', $user->first_name);
+            $insert->bindValue('last_name', $user->last_name);
+            $insert->bindValue('tel_number', $user->tel_number);
+            $insert->bindValue('user_id', $user->user_id);
+            if ($insert->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            printError(500, $e->getMessage() . "<br>");
+        }
+    }
+
+    public function updateUserWithPassword(User $user)
+    {
+        try {
+            $db = Connection::connect();
             $insert = $db->prepare('UPDATE  users SET email=:email ,password = :password ,first_name  = :first_name ,last_name =  :last_name,tel_number = :tel_number WHERE user_id=:user_id');
             if (!empty($user->password)) {
                 $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
@@ -83,6 +103,7 @@ class UserRepository
             printError(500, $e->getMessage() . "<br>");
         }
     }
+
 
 
 

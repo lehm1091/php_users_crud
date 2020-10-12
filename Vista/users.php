@@ -319,6 +319,7 @@ permitUsers();
                 $("#lastname").val($("#lastname").val().trim());
                 $("#password").val($("#password").val().trim());
                 $("#telnumber").val($("#telnumber").val().trim());
+
                 if (check_email() &&
                     check_password() &&
                     check_name() &&
@@ -477,20 +478,28 @@ permitUsers();
 
 
         function check_password() {
-
             var password_length = $("#password").val().length;
-            if (password_length < 4) {
-                $(".password_error_text").html("La Contraseña debe tener almenos 5 caracteres");
-                $(".password_error_text").show();
-                $("#passwordFormGroup").addClass("has-error has-feedback");
+            var id = $("#id").val();
+            if (id != "" && password_length == 0) {
 
-                return false;
-            } else {
-                $("#passwordFormGroup").removeClass("has-error");
-                $("#passwordFormGroup").addClass("has-success");
-                $(".password_error_text").hide();
                 return true;
+            } else {
+
+                if (password_length < 4) {
+                    $(".password_error_text").html("La Contraseña debe tener almenos 5 caracteres");
+                    $(".password_error_text").show();
+                    $("#passwordFormGroup").addClass("has-error has-feedback");
+
+                    return false;
+                } else {
+                    $("#passwordFormGroup").removeClass("has-error");
+                    $("#passwordFormGroup").addClass("has-success");
+                    $(".password_error_text").hide();
+                    return true;
+                }
             }
+
+
         }
 
 
@@ -512,8 +521,6 @@ permitUsers();
         function getJsonResponse(data) {
             return JSON.parse(data);
         }
-
- 
     </script>
 </BODY>
 

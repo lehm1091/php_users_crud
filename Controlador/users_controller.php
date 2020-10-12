@@ -20,19 +20,21 @@ if (isset($_REQUEST['method'])) {
     } else if ($_REQUEST['method'] === 'updateOne' and isset($_REQUEST['id'])) {
         $user = mapUser();
         if (getUserRepository()->findUserById($_REQUEST['id'])) {
-            if (!getUserRepository()->updateUser($user)) {
-                responseMessage(500, "Algo salio mal", "");
-            } else {
-                //REMOVE ALL ROLES
-                try {
-                    getRoleRepository()->deleteRolesByUserId($user->user_id);
-                    //ADD NEW ROLES
-                    addRolesToUser($_REQUEST['id'],);
-                    responseMessage(200, "Usuario actualizado", "");
-                } catch (Exception $e) {
-                    responseMessage(500, $e->getMessage(), "");
-                    print_r($e);
+            if ($_REQUEST['password'] == "") {
+                if (!getUserRepository()->updateUser($user)) {
+                    responseMessage(500, "Algo salio mal", "");
                 }
+            } else if (!getUserRepository()->updateUserWithPassword($user)) {
+                responseMessage(500, "Algo salio mal", "");
+            }
+            //REMOVE ALL ROLES
+            try {
+                getRoleRepository()->deleteRolesByUserId($user->user_id);
+                //ADD NEW ROLES
+                addRolesToUser($_REQUEST['id'],);
+                responseMessage(200, "Usuario actualizado", "");
+            } catch (Exception $e) {
+                responseMessage(500, $e->getMessage(), "");
             }
         } else {
             responseMessage(404, "Usuario no existe", "");
