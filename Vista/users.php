@@ -93,12 +93,13 @@ permitUsers();
 
     <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Vista/userFormModal.php'; ?>
 
+    <script src="../Controlador/assets/js/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/dataTables.responsive.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/script.js" type="text/javascript"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script>
         if (<?php echo (isAdmin()  and !isSuperAdmin()) ? 1 : 0 ?>) {
             $("#superGroup").remove();
@@ -258,14 +259,33 @@ permitUsers();
                     "data": "3"
                 },
                 {
-                    "data": "4"
+                    "data": 4,
+                    render: function(data, type, row) {
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+                        return converMySqlDate(data);
+                    }
+
+
                 },
+
                 {
-                    "data": "5"
+                    "data": 5,
+                    render: function(data, type, row) {
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
+                        return converMySqlDateTime(data);
+                    }
                 },
+
                 {
                     data: 0, ///pass id of user from data
                     render: function(data, type, row) {
+                        if (type === "sort" || type === "type") {
+                            return data;
+                        }
 
                         let edit = `<a class='text-primary editLink' href="#" style="margin-right:20px" onclick="editUser(${data})" ><i class="fa fa-lg  fa-pencil"></i></a>`;
                         let del = `<a class="text-danger deleteLink" id="delete${data}" href="#" onclick="deleteUser(${data})"><i class="fa fa-lg  fa-trash"></i></a>`;
@@ -282,11 +302,6 @@ permitUsers();
 
             ]
         });
-
-
-
-
-
 
 
 
@@ -481,7 +496,6 @@ permitUsers();
             var password_length = $("#password").val().length;
             var id = $("#id").val();
             if (id != "" && password_length == 0) {
-
                 return true;
             } else {
 
