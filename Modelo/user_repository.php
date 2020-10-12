@@ -119,10 +119,14 @@ class UserRepository
 
     public function userEmailExist($email)
     {
-        if ($this->findUserByEmail($email)) {
-            return true;
-        } else {
-            return false;
+        try {
+            if ($this->findUserByEmail($email)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            printError(500, $e->getMessage() . "<br>");
         }
     }
 

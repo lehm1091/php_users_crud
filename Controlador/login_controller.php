@@ -12,7 +12,7 @@ if (isset($_REQUEST['method'])) {
 
     if ($_REQUEST['method'] === 'login') {
         if (isset($_REQUEST['email']) and isset($_REQUEST['password'])) {
-            loginMember();
+            echo loginMember();
         } else {
             return false;
         }
@@ -27,20 +27,16 @@ function loginMember()
 {
     try {
         if (getUserRepository()->userHasAccess($_POST["password"], $_POST["email"])) {
-
-            if (session_id()) {
-                session_regenerate_id();
-            } else {
-                session_start();
-            }
             $memberRecord = getUserRepository()->findUserByEmail($_POST["email"]);
             getUserRepository()->updateUserLastSeen($memberRecord->user_id);
             $_SESSION["last_seen"] = $memberRecord->last_seen;
             $_SESSION["email"] = $memberRecord->email;
             $_SESSION["user_id"] = $memberRecord->user_id;
             $roles = $memberRecord->roles;
-            for ($i = 0; $i < count($roles); $i++) {
-                $_SESSION[$roles[$i]->name] = true;
+            if (isset($roles)) {
+                for ($i = 0; $i < count($roles); $i++) {
+                    $_SESSION[$roles[$i]->name] = true;
+                }
             }
 
 
