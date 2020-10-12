@@ -140,6 +140,8 @@ permitUsers();
         $("#telnumber").keyup(function() {
             checkTelNumber("telnumber");
         });
+
+        
     </script>
 </body>
 

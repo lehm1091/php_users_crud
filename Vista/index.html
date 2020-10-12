@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/dataTables.bootstrap.min.css" />
+    <link href="../Controlador/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+
+
+</head>
+
+<BODY>
+
+
+    <div class="container" style="max-width: 400px;">
+
+
+        <div class="row ">
+            <div class="col ">
+                <div class="" style="margin-top:50% !important">
+
+
+                    <div class="text-center my-5">
+                        <img src="../Controlador/assets/img/logo.png" style="height: 80px;" alt="logo">
+                    </div>
+                    <div class="well well-sm text-center"><i class="fa fa-lg fa-user-circle-o" aria-hidden="true"></i>
+
+                    </div>
+                    <div style="margin-top:5% !important">
+                        <div class="alert alert-success  alert-dismissible hide">
+
+                        </div>
+                        <div class="alert alert-danger alert-dismissible hide">
+
+                        </div>
+
+                    </div>
+                    <div class="panel panel-default">
+
+
+
+                        <div class="panel-body">
+                            <div><Label>Iniciar sesion</Label></div>
+
+                            <form id="loginForm" action="" method="POST">
+                                <input type="text" name="id" id="id" value="" hidden>
+
+
+                                <p id="message"></p>
+                                <div class="form-group email-form-group">
+
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="email" name="email"
+                                            placeholder="usuario@correo.com">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"
+                                                aria-hidden="true"></i></span>
+                                    </div>
+
+                                    <small class="email-error-text text-danger"></small>
+                                </div>
+
+                                <div class="form-group password-form-group">
+
+                                    <div class="input-group">
+                                        <input type="password" class="form-control " name="password" id="password"
+                                            placeholder="Contraseña">
+                                        <span class="input-group-addon"><i class="fa fa-key"
+                                                aria-hidden="true"></i></span>
+
+                                    </div>
+
+
+                                    <small class="password-error-text text-danger"></small>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="form-group ">
+                                        <div class="" style="max-width: 400px;
+                                        display: flex;
+                                        justify-content: space-between;">
+                                            <div>
+                                                <a class="text-primary" href="signup.html" title="Registrarse">
+                                                    Registrarse
+                                            </div>
+                                            </a>
+
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Entrar <i
+                                                        class="fa fa-sign-in" aria-hidden="true"></i></button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <script src="../Controlador/assets/js/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/script.js" type="text/javascript"></script>
+
+    <script>
+        $(".alert-danger").hide();
+        $(".alert-success").hide();
+    </script>
+</BODY>
+
+</HTML>

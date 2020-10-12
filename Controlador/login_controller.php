@@ -3,6 +3,8 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Modelo/user.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Modelo/user_repository.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Modelo/role_repository.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/util.php';
 
 session_start();
 
@@ -19,6 +21,20 @@ if (isset($_REQUEST['method'])) {
 
         //     header("Location:" . INDEX_URL);
 
+    } else if ($_REQUEST['method'] === 'register') {
+        if (!getUserRepository()->userEmailExist($_REQUEST['email'])) {
+            $user = mapUser();
+            $id = getUserRepository()->saveUser($user);
+            if (!$id) {
+                responseMessage(500, "Algo salio mal", "");
+            } else {
+                //add roles to new user 
+                addRolesToUser($id);
+                loginMember();
+            }
+        } else {
+            responseMessage(500, "Este email ya esta siendo utilizado por otra persona", "");
+        }
     }
 }
 
@@ -48,22 +64,4 @@ function loginMember()
     } catch (Exception $e) {
         return responseMessage(500, $e->getMessage(), "");
     }
-}
-
-function getUserRepository()
-{
-    return new UserRepository();
-}
-
-
-function responseMessage($code, $message, $data)
-{
-
-    $httpMessage = array(
-        "message" => $message,
-        'data' => $data
-    );
-
-    http_response_code($code);
-    print_r(json_encode($httpMessage));
 }

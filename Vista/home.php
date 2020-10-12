@@ -62,42 +62,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/authoriza
 
 
     <script src="../Controlador/assets/js/jquery-3.5.1.js" type="text/javascript"></script>
-    <script src="../Controlador/assets/js/bootstrap.min.js"></script>
-    <script src="../Controlador/assets/js/script.js"></script>
+    <script src="../Controlador/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/dataTables.responsive.min.js" type="text/javascript"></script>
+    <script src="../Controlador/assets/js/script.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-
-            $(".form-check-input").prop("checked", false);
-            $.ajax({
-                url: '../Controlador/users_controller.php?method=findOne',
-                type: 'POST',
-                data: {
-                    id: <?php echo getUserId() ?>
-                },
-                beforeSend: () => {
-
-                },
-
-                success: function(response) {
-
-                    $("#email").append(getJsonResponse(response).data.email);
-                    $("#name").append(getJsonResponse(response).data.first_name);
-                    $("#lastname").append(getJsonResponse(response).data.last_name);
-                    $("#telnumber").append(getJsonResponse(response).data.tel_number);
-                    roles = getJsonResponse(response).data.roles;
-                    for (role of roles) {
-                        $('#roles').append(`<li>${role.name}</li>`)
-                    }
-                },
-                error: error => {
-                    console.log(error);
-
-                }
-            });
-
-            function getJsonResponse(data) {
-                return JSON.parse(data);
-            }
+            fillLoggedUserInfo(<?php echo getUserId() ?>);
         });
     </script>
 </BODY>

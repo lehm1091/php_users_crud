@@ -1,5 +1,6 @@
 /**controller url */
 const INSERT_URL_USERS_VIEW = '../Controlador/users_controller.php?method=saveOne';
+const REGISTER_URL_USERS_VIEW = '../Controlador/login_controller.php?method=register';
 const UPDATE_URL_USERS_VIEW = '../Controlador/users_controller.php?method=updateOne';
 const DATATABLE_CONTROLLER_URL_USERS_VIEW = '../Controlador/user_table_controller.php';
 const EMAIL_EXISTENCE_URL_USERS_VIEW = '../Controlador/users_controller.php?method=emailExits';
@@ -60,6 +61,106 @@ $('#userForm').submit(
                     $("#userForm .btn").html('Login');
                     showDangerAlert(jsonParseResponse(error.responseText).message);
                 }
+            });
+        } else {
+            showDangerAlert("Algo salio mal en la validacion");
+        }
+
+
+    }
+
+
+);
+
+
+$('#loginForm').submit(
+    function (event) {
+        $(".alert-danger").hide();
+        $(".alert-success").hide();
+
+        $("#email").val($("#email").val().trim());
+        $("#password").val($("#password").val().trim());
+        event.preventDefault();
+
+        if (checkEmail("email") &&
+            checkPassword("password")) {
+            $.ajax({
+                url: '../Controlador/login_controller.php?method=login',
+                type: 'POST',
+                data: $("#loginForm").serialize(),
+                beforeSend: () => {
+                    $("#loginForm .btn").html('<img src="../Controlador/assets/img/loading.gif" style="height: 10px;" alt="logo">');
+                },
+                success: function (response) {
+                    showSuccessFeedback("password");
+                    showSuccessFeedback("email");
+                    $("#loginForm .btn").html('<i class="fa fa-check"></i>');
+                    console.log(response);
+                    showSucessAlert(jsonParseResponse(response).message);
+                    setTimeout(function () {
+                        window.location.href = "home.php";
+                    }, 500);
+
+
+                },
+                error: error => {
+                    console.log(error);
+                    $("#loginForm .btn").html('Volver a intentar');
+                    showErrorFeedback("password");
+                    showErrorFeedback("email");
+                    showDangerAlert(jsonParseResponse(error.responseText).message);
+                }, complete: () => {
+
+                }
+            });
+
+        }
+
+    }
+);
+
+
+
+
+$('#registerForm').submit(
+
+    function (event) {
+        $(".alert-danger").hide();
+        $(".alert-success").hide();
+        event.preventDefault();
+        $("#email").val($("#email").val().trim());
+        $("#name").val($("#name").val().trim());
+        $("#lastname").val($("#lastname").val().trim());
+        $("#password").val($("#password").val().trim());
+        $("#telnumber").val($("#telnumber").val().trim());
+        if (checkEmail("email") &&
+            checkPassword("password") &&
+            checkName("name") &&
+            checkLastName("lastname") &&
+            checkTelNumber("telnumber")) {
+            $.ajax({
+                url: REGISTER_URL_USERS_VIEW,
+                type: 'POST',
+                data: $("#registerForm").serialize(),
+                beforeSend: () => {
+                    $("#registerForm .btn").html('<img src="../Controlador/assets/img/loading.gif" style="height: 10px;" alt="logo">');
+                },
+                success: function (response) {
+                    $("#registerForm .btn").html('<i class="fa fa-check"></i>');
+                    console.log(response);
+                    showSucessAlert(jsonParseResponse(response).message);
+                    setTimeout(function () {
+                        window.location.href = "home.php";
+                    }, 500);
+                },
+                error: error => {
+                    console.log(error);
+                    $("#registerForm .btn").html('Volver a intentar');
+                    showDangerAlert(jsonParseResponse(error.responseText).message);
+                }, complete: () => {
+
+                }
+
             });
         } else {
             showDangerAlert("Algo salio mal en la validacion");
@@ -147,6 +248,25 @@ function initUserDatatable(tableId, isSuper, isAdmin) {
 
 }
 
+function fillLoggedUserInfo(id) {
+    $.ajax({
+        url: FIND_ONE_URL_USERS_VIEW,
+        type: 'POST',
+        data: {
+            id: id
+        },
+        success: function (response) {
+            fillUserHTMLInfoFromHTTPResponse(response)
+        },
+        error: error => {
+            console.log(error);
+
+        }
+    });
+}
+
+
+
 /**user form modal functions */
 
 function editLoggedUserInfo(loggedUserId) {
@@ -163,6 +283,15 @@ function fillUserFormWithUserInfoFromDataBase(id, modalTitle) {
     $(".modal-title").html(modalTitle);
     //reset check boxes
     $(".form-check-input").prop("checked", false);
+    findUserByIdAndFillDOMlElements(id);
+    $("#userFormModal").modal();
+
+}
+
+
+
+function findUserByIdAndFillDOMlElements(id) {
+
     $.ajax({
         url: FIND_ONE_URL_USERS_VIEW,
         type: 'POST',
@@ -177,7 +306,7 @@ function fillUserFormWithUserInfoFromDataBase(id, modalTitle) {
             showDangerAlert(error.responseText);
         }
     });
-    $("#userFormModal").modal();
+
 
 }
 
@@ -194,7 +323,8 @@ function deleteUser(id) {
             success: function (response) {
                 console.log(response);
                 showSucessAlert(jsonParseResponse(response).message);
-                ajaxReloadUsersDatatable("usersTable");            },
+                ajaxReloadUsersDatatable("usersTable");
+            },
             error: error => {
                 console.log(error);
                 showDangerAlert(jsonParseResponse(error.responseText).message);
@@ -217,6 +347,18 @@ function fillUserFormFromHTTPResponse(response) {
     let roles = jsonParseResponse(response).data.roles;
     for (role of roles) {
         $('#' + role.name).prop("checked", true);
+    }
+
+}
+
+function fillUserHTMLInfoFromHTTPResponse(response) {
+    $("#email").append(jsonParseResponse(response).data.email);
+    $("#name").append(jsonParseResponse(response).data.first_name);
+    $("#lastname").append(jsonParseResponse(response).data.last_name);
+    $("#telnumber").append(jsonParseResponse(response).data.tel_number);
+    roles = jsonParseResponse(response).data.roles;
+    for (role of roles) {
+        $('#roles').append(`<li>${role.name}</li>`)
     }
 
 }
