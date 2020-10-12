@@ -12,7 +12,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/authoriza
     <title>Inicio</title>
     <!-- Bootstrap -->
     <link href="../Controlador/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/dataTables.bootstrap.min.css" />
     <link href="../Controlador/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
 
 </head>
@@ -40,7 +39,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/authoriza
             <div class="col">
                 <h1 class="text-center">Bienvenido</h1>
                 <h3>Resumen de su informacion</h3>
-                <p class="text-success "> <strong>Sesion iniciada el </strong> <?php echo getLastSeen() ?></p>
+                <p class="text-success "> Sesion iniciada el <strong id="last_seen"> <?php echo getLastSeen() ?></strong>
+                    <script></script>
+                </p>
                 <div class="well">
                     <label class=" control-label">Email</label>
                     <p class="tab" id="email"></p>
@@ -62,10 +63,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/authoriza
 
     <script src="../Controlador/assets/js/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="../Controlador/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../Controlador/assets/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../Controlador/assets/js/dataTables.bootstrap.min.js"></script>
+    <script src="../Controlador/assets/js/script.js"></script>
     <script>
         $(document).ready(function() {
+
             $(".form-check-input").prop("checked", false);
             $.ajax({
                 url: '../Controlador/users_controller.php?method=findOne',
