@@ -276,6 +276,9 @@ permitUsers();
                         if (type === "sort" || type === "type") {
                             return data;
                         }
+                        if (data === null) {
+                            return data;
+                        }
                         return converMySqlDateTime(data);
                     }
                 },
