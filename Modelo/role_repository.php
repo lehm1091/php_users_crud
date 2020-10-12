@@ -39,7 +39,7 @@ class roleRepository
             $select = $db->prepare('SELECT r.role_id,r.name FROM roles as r inner join users_roles ur on r.role_id=ur.role_id where ur.user_id=:id');
             $select->bindValue("id", $id);
             $select->execute();
-            if (count($select) > 0) {
+            if (isset($select) > 0) {
                 $roles = [];
                 foreach ($select->fetchAll() as $role) {
                     $roles[] = $this->roleEncode($role);

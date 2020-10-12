@@ -96,13 +96,13 @@ class UserRepository
             $item = $select->fetch();
 
             if (count($item) > 0) {
-                print_r("dentro de ");
+
                 $roleRepository = new roleRepository();
                 $roles = $roleRepository->findRolesByUserId($item['user_id']);
-                print_r($roles);
+
 
                 if ($roles) {
-                    print_r($this->userEncode($item, $roles));
+
                     return $this->userEncode($item, $roles);
                 } else {
                     return $this->userEncode($item, array());
