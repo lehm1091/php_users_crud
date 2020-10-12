@@ -40,26 +40,28 @@ if (isset($_REQUEST['method'])) {
             responseMessage(404, "Usuario no existe", "");
         }
     } else if ($_REQUEST['method'] === 'saveOne') {
-
+        if (!getUserRepository()->userEmailExist($_REQUEST['email'])) {
+            $user = mapUser();
+            $id = getUserRepository()->saveUser($user);
+            if (!$id) {
+                responseMessage(500, "Algo salio mal", "");
+            } else {
+                //add roles to new user 
+                addRolesToUser($id);
+                responseMessage(200, "Usuario guardado con exito", "");
+            }
+        } else {
+            responseMessage(500, "El email ya existe", "");
+        }
+    } /*else if ($_REQUEST['method'] === 'saveOne') {
         $user = mapUser();
         $id = getUserRepository()->saveUser($user);
         if (!$id) {
             responseMessage(500, "Algo salio mal", "");
         } else {
-            //add roles to new user 
             addRolesToUser($id);
             responseMessage(200, "Usuario guardado con exito", "");
-        }
-    } else if ($_REQUEST['method'] === 'saveOne') {
-        $user = mapUser();
-        $id = getUserRepository()->saveUser($user);
-        if (!$id) {
-            responseMessage(500, "Algo salio mal", "");
-        } else {
-            addRolesToUser($id);
-            responseMessage(200, "Usuario guardado con exito", "");
-        }
-    } else if ($_REQUEST['method'] === 'emailExits') {
+        }*/ else if ($_REQUEST['method'] === 'emailExits') {
         if (!getUserRepository()->userEmailExist($_REQUEST['email'])) {
             responseMessage(200, "El email no existe", "");
         } else {
