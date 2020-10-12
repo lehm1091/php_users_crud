@@ -18,18 +18,25 @@ if (isset($_REQUEST['method'])) {
     } else if ($_REQUEST['method'] === 'deleteOne' and isset($_REQUEST['id'])) {
         responseMessage(200, "Usuario Borrado con exito", getUserRepository()->deleteUserById($_REQUEST['id']));
     } else if ($_REQUEST['method'] === 'updateOne' and isset($_REQUEST['id'])) {
-        $user = mapUser();
-        if (getUserRepository()->findUserById($_REQUEST['id'])) {
+        $mappedUser = mapUser();
+        $record = getUserRepository()->findUserById($_REQUEST['id']);
+        if ($record) {
+            if ($record->email != $mappedUser->email) {
+                if (getUserRepository()->userEmailExist($_REQUEST['email'])) {
+                    responseMessage(500, "Este email ya esta siendo utilizado por otra persona", "");
+                    return;
+                }
+            }
             if ($_REQUEST['password'] == "") {
-                if (!getUserRepository()->updateUser($user)) {
+                if (!getUserRepository()->updateUser($mappedUser)) {
                     responseMessage(500, "Algo salio mal", "");
                 }
-            } else if (!getUserRepository()->updateUserWithPassword($user)) {
+            } else if (!getUserRepository()->updateUserWithPassword($mappedUser)) {
                 responseMessage(500, "Algo salio mal", "");
             }
             //REMOVE ALL ROLES
             try {
-                getRoleRepository()->deleteRolesByUserId($user->user_id);
+                getRoleRepository()->deleteRolesByUserId($mappedUser->user_id);
                 //ADD NEW ROLES
                 addRolesToUser($_REQUEST['id'],);
                 responseMessage(200, "Usuario actualizado", "");
@@ -51,7 +58,7 @@ if (isset($_REQUEST['method'])) {
                 responseMessage(200, "Usuario guardado con exito", "");
             }
         } else {
-            responseMessage(500, "El email ya existe", "");
+            responseMessage(500, "Este email ya esta siendo utilizado por otra persona", "");
         }
     } /*else if ($_REQUEST['method'] === 'saveOne') {
         $user = mapUser();
