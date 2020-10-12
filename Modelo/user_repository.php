@@ -116,7 +116,7 @@ class UserRepository
             $select->execute();
             $item = $select->fetch();
 
-            if (count($item) > 0) {
+            if ($item) {
 
                 $roleRepository = new roleRepository();
                 $roles = $roleRepository->findRolesByUserId($item['user_id']);

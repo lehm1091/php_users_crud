@@ -105,30 +105,27 @@
 
             $('#loginForm').submit(
                 function (event) {
+                    $(".alert-danger").hide();
+                    $(".alert-success").hide();
                     event.preventDefault();
-                    check_correo();
-                    check_secret();
-                    var correo = $("#correo").val();
-                    var secret = $("#secret").val();
-                    if (correo.length == "" || secret.length == "") {
-                        showDangerAlert("Por favor llene este campo primero");
-                        return false;
 
-
-                    } else {
-
+                    if (check_correo() &&
+                        check_secret()) {
                         $.ajax({
                             url: './Controlador/login_controller.php?method=login',
                             type: 'POST',
                             data: $("#loginForm").serialize(),
 
                             beforeSend: () => {
-                                $("#loginForm .btn").html('<span class="">Cargando...</span>');
+
                             },
 
                             success: function (response) {
                                 $("#loginForm .btn").html('<i class="fa fa-check"></i>');
                                 console.log(response);
+
+                                showEmailSuccess();
+                                showPasswordSuccess();
                                 showSucessAlert(getJsonResponse(response).message);
                                 setTimeout(function () {
                                     window.location.href = "./Vista/home.php";
@@ -138,7 +135,8 @@
                             },
                             error: error => {
                                 console.log(error);
-                                $("#loginForm .btn").html('Login');
+                                showEmailErrors("");
+                                showPasswordErrors("");
                                 showDangerAlert(getJsonResponse(error.responseText).message);
 
                             }
@@ -152,46 +150,58 @@
 
             $(".correo_error_text").hide();
             $(".secret_error_text").hide();
-            var error_correo = false;
-            var error_secret = false;
-            $("#correo").keyup(function () {
-                check_correo();
-            });
-            $("#secret").keyup(function () {
-                check_secret();
-            });
-
             function check_correo() {
                 $("#message").hide();
                 $("#correo").val($("#correo").val().trim());
                 var pattern = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
                 if (pattern.test($("#correo").val())) {
-                    $(".correo_error_text").hide();
-                    $("#correoFormGroup").addClass("has-success has-feedback");
-                    $("#correoFormGroup").removeClass("has-error");
+                    showEmailSuccess();
+                    return true;
 
                 } else {
-                    $(".correo_error_text").html("Direccion de correo electronica invalida");
-                    $(".correo_error_text").show();
-                    $("#correoFormGroup").addClass("has-error");
-                    error_correo = true;
+                    showEmailErrors("Formato incorrecto");
+                    return false;
                 }
 
+
+            }
+
+
+            function showEmailErrors(msg) {
+                $(".correo_error_text").html(msg);
+                $(".correo_error_text").show();
+                $("#correoFormGroup").addClass("has-error");
+            }
+
+            function showEmailSuccess() {
+                $(".correo_error_text").hide();
+                $("#correoFormGroup").addClass("has-success has-feedback");
+                $("#correoFormGroup").removeClass("has-error");
             }
             function check_secret() {
                 $("#message").hide();
                 $("#secret").val($("#secret").val().trim());
                 var secret_length = $("#secret").val().length;
                 if (secret_length < 4) {
-                    $(".secret_error_text").html("La Contraseña debe tener almenos 4 caracteres");
-                    $(".secret_error_text").show();
-                    $("#secretFormGroup").addClass("has-error has-feedback");
-                    error_secret = true;
+                    showPasswordErrors("La Contraseña debe tener almenos 4 caracteres")
+                    return false;
+
                 } else {
-                    $("#secretFormGroup").removeClass("has-error");
-                    $("#secretFormGroup").addClass("has-success");
-                    $(".secret_error_text").hide();
+                    showPasswordSuccess();
+                    return true;
                 }
+            }
+            function showPasswordErrors(msg) {
+                $(".secret_error_text").html(msg);
+                $(".secret_error_text").show();
+                $("#secretFormGroup").addClass("has-error has-feedback");
+            }
+            function showPasswordSuccess() {
+
+                $("#secretFormGroup").removeClass("has-error");
+                $("#secretFormGroup").addClass("has-success");
+                $(".secret_error_text").hide();
+
             }
 
             function showDangerAlert(message) {
