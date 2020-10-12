@@ -94,10 +94,15 @@ class UserRepository
             $select->bindValue("email", $email);
             $select->execute();
             $item = $select->fetch();
-            if ($item) {
+
+            if (count($item) > 0) {
+                print_r("dentro de ");
                 $roleRepository = new roleRepository();
                 $roles = $roleRepository->findRolesByUserId($item['user_id']);
-                if (isset($roles)) {
+                print_r($roles);
+
+                if ($roles) {
+                    print_r($this->userEncode($item, $roles));
                     return $this->userEncode($item, $roles);
                 } else {
                     return $this->userEncode($item, array());
