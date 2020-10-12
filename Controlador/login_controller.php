@@ -29,6 +29,7 @@ function loginMember()
         if (getUserRepository()->userHasAccess($_POST["password"], $_POST["email"])) {
             $memberRecord = getUserRepository()->findUserByEmail($_POST["email"]);
             getUserRepository()->updateUserLastSeen($memberRecord->user_id);
+            $memberRecord = getUserRepository()->findUserByEmail($_POST["email"]);
             $_SESSION["last_seen"] = $memberRecord->last_seen;
             $_SESSION["email"] = $memberRecord->email;
             $_SESSION["user_id"] = $memberRecord->user_id;
