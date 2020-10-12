@@ -32,10 +32,9 @@ function loginMember()
             $_SESSION["last_seen"] = $memberRecord->last_seen;
             $_SESSION["email"] = $memberRecord->email;
             $_SESSION["user_id"] = $memberRecord->user_id;
-            $roles = $memberRecord->roles;
-            if (isset($roles)) {
-                for ($i = 0; $i < count($roles); $i++) {
-                    $_SESSION[$roles[$i]->name] = true;
+            if ($memberRecord->roles !== null) {
+                for ($i = 0; $i < count($memberRecord->roles); $i++) {
+                    $_SESSION[$memberRecord->roles[$i]->name] = true;
                 }
             }
 

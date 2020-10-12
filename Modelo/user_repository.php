@@ -21,7 +21,12 @@ class UserRepository
         $user->last_seen = $this->formatDate($userRecord['last_seen']);
         $user->create_at = $this->formatDate($userRecord['create_at']);
         $user->is_active = $userRecord['is_active'];
-        $user->roles = $roles;
+        if (isset($roles)) {
+            $user->roles = $roles;
+        } else {
+            $user->roles = [];
+        }
+
         return $user;
     }
 
@@ -92,7 +97,7 @@ class UserRepository
             if ($item) {
                 $roleRepository = new roleRepository();
                 $roles = $roleRepository->findRolesByUserId($item['user_id']);
-                if ($roles) {
+                if (isset($roles)) {
                     return $this->userEncode($item, $roles);
                 } else {
                     return $this->userEncode($item, array());
