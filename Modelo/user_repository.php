@@ -91,7 +91,12 @@ class UserRepository
             $item = $select->fetch();
             if ($item) {
                 $roleRepository = new roleRepository();
-                return $this->userEncode($item, $roleRepository->findRolesByUserId($item['user_id']));
+                $roles = $roleRepository->findRolesByUserId($item['user_id']);
+                if ($roles) {
+                    return $this->userEncode($item, $roles);
+                } else {
+                    return $this->userEncode($item, array());
+                }
             }
         } catch (Exception $e) {
             printError(500, $e->getMessage() . "<br>");
