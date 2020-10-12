@@ -114,3 +114,54 @@ INSERT INTO `supertex_lehm`.`users_roles` VALUES('3', '3');
 INSERT INTO `supertex_lehm`.`users_roles` VALUES('4', '3');
 INSERT INTO `supertex_lehm`.`users_roles` VALUES('5', '3');
 /**Todos los usuarios tienen como contraseña "contra" **/
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('6', 'usuario1@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario1', 'Usuario1', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('7', 'usuario2@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario2', 'Usuario2', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('8', 'usuario3@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('10', 'usuario4@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('11', 'usuario5@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('12', 'usuario6@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('13', 'usuario7@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('14', 'usuario8@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('15', 'usuario9@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('16', 'usuario10@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);
+
+INSERT INTO `supertex_lehm`.`users`
+VALUES
+('17', 'usuario11@correo.com', '$2y$10$uO.yY2tnGtElJcs/B2zaO.0DfCeoYU8IqLIUdjB//khW/InZpfZhm', 'Usuario', 'Usuario', '5555-8888', '2020-10-11 20:11:08', '2020-10-11 20:07:15', '1'
+);

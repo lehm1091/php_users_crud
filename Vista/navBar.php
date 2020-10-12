@@ -32,8 +32,8 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="./home.php">Inicio</a></li>
-
+                <li><a href="./index.html">Index</a></li>
+                <li><a href="./home.php">Perfil</a></li>
                 <?php echo isUser() ? '<li><a href="./users.php">Usuarios</a></li>' : "" ?>
 
             </ul>
