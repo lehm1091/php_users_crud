@@ -42,14 +42,18 @@ permitUsers();
 
 
         <div class="row">
-            <a class="text-primary" onclick="editarMiInformacion()" title="Editar mi informacion">
+            <div class="well well-sm">
+                <a class="text-primary" onclick="editarMiInformacion()" title="Editar mi informacion">
 
-                Editar mi informacion <i class="fa fa-lg fa-pencil-square" style="margin-left: 5px;" aria-hidden="true"></i>
-            </a>
-            <a id="nuevoUsuario" type="button" class="text-primary" style="margin-left:15px" onclick="openUserModal()" title="Nuevo usuario">
-                Nuevo usuario
-                <i class="fa fa-lg  fa-plus" style="margin-left: 5px;" aria-hidden="true"></i>
-            </a>
+                    Editar mi informacion <i class="fa fa-lg fa-pencil-square" style="margin-left: 5px;" aria-hidden="true"></i>
+                </a>
+                <a id="nuevoUsuario" type="button" class="text-primary" style="margin-left:15px" onclick="openUserModal()" title="Nuevo usuario">
+                    Nuevo usuario
+                    <i class="fa fa-lg  fa-plus" style="margin-left: 5px;" aria-hidden="true"></i>
+                </a>
+            </div>
+
+
         </div>
 
 
