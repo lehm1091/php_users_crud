@@ -277,6 +277,7 @@ function editSelectedUserInfo(id) {
 
 function fillUserFormWithUserInfoFromDataBase(id, modalTitle) {
     resetUserForm();
+    $("#userForm .btn").html('<i class="fa fa-save"></i>');
     $("#userFormModal .modal-title").html(modalTitle);
     //reset check boxes
     $(".form-check-input").prop("checked", false);
@@ -372,7 +373,7 @@ function fillUserHTMLInfoFromHTTPResponse(response) {
 function openModalForNewUser() {
     $("#userForm .btn").html('<i class="fa fa-save"></i>');
     $("#userFormModal").modal();
-    $(".modal-title").html("Nuevo Usuario");
+    $("#userFormModal .modal-title").html("Nuevo Usuario");
     resetUserForm();
 }
 
