@@ -153,6 +153,7 @@ $('#registerForm').submit(
                 error: error => {
                     console.log(error);
                     $("#registerForm .btn").html('Volver a intentar');
+                    showErrorFeedback("email");
                     showDangerAlert(jsonParseResponse(error.responseText).message);
                 }, complete: () => {
 
