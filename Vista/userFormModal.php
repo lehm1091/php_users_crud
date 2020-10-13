@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary">Guardar </button>
+                                    <button type="submit" class="btn btn-primary" title="Guardar" aria-label="Guardar"><i class="fa fa-save"></i></button>
                                 </div>
                             </div>
                     </form>

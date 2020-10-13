@@ -18,6 +18,7 @@ $(".alert-success").hide();
 $('#userForm').submit(
 
     function (event) {
+
         $(".alert-danger").hide();
         $(".alert-success").hide();
         event.preventDefault();
@@ -43,18 +44,19 @@ $('#userForm').submit(
                 },
                 success: function (response) {
                     $("#userForm .btn").html('<i class="fa fa-check"></i>');
-                    $("#userFormModal").modal('hide');
                     console.log(response);
                     showSucessAlert(jsonParseResponse(response).message);
                     ajaxReloadUsersDatatable("usersTable");
                     resetUserForm();
+                    setTimeout(function () { $("#userFormModal").modal('hide'); }, 1000);
 
 
                 },
                 error: error => {
                     console.log(error);
-                    $("#userForm .btn").html('Guardar');
+                    $("#userForm .btn").html('<i class="fa fa-exclamation-circle"></i>');
                     showDangerAlert(jsonParseResponse(error.responseText).message);
+                    setTimeout(function () { $("#userForm .btn").html('Volver a guardar <i class="fa fa-save">'); }, 1000);
                 }
             });
         } else {
@@ -368,6 +370,7 @@ function fillUserHTMLInfoFromHTTPResponse(response) {
 
 
 function openModalForNewUser() {
+    $("#userForm .btn").html('<i class="fa fa-save"></i>');
     $("#userFormModal").modal();
     $(".modal-title").html("Nuevo Usuario");
     resetUserForm();
