@@ -47,17 +47,6 @@ permitUsers();
 
 
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="alert alert-danger alert-dismissible hide">
-
-                </div>
-                <div class="alert alert-success alert-dismissible hide">
-
-                </div>
-            </div>
-        </div>
-
 
         <div class="row">
             <div class="well well-sm">
@@ -73,6 +62,20 @@ permitUsers();
 
 
         </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible hide">
+
+                </div>
+                <div class="alert alert-success alert-dismissible hide">
+
+                </div>
+            </div>
+        </div>
+
+
+
 
 
         <div class="row">
