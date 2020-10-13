@@ -29,11 +29,6 @@ $('#userForm').submit(
         $("#telnumber").val($("#telnumber").val().trim());
 
         console.log(checkPasswordCustom("password", "id"));
-
-
-
-
-
         if (checkEmail("email") &&
             checkPasswordCustom("password", "id") &&
             checkName("name") &&
@@ -44,7 +39,7 @@ $('#userForm').submit(
                 type: 'POST',
                 data: $("#userForm").serialize(),
                 beforeSend: () => {
-                    $("#userForm .btn").html('<span class="">Cargando...</span>');
+                    $("#userForm .btn").html('<img src="../Controlador/assets/img/loading.gif" style="height: 10px;" alt="loading">');
                 },
                 success: function (response) {
                     $("#userForm .btn").html('<i class="fa fa-check"></i>');
@@ -58,7 +53,7 @@ $('#userForm').submit(
                 },
                 error: error => {
                     console.log(error);
-                    $("#userForm .btn").html('Login');
+                    $("#userForm .btn").html('Guardar');
                     showDangerAlert(jsonParseResponse(error.responseText).message);
                 }
             });
@@ -89,7 +84,7 @@ $('#loginForm').submit(
                 type: 'POST',
                 data: $("#loginForm").serialize(),
                 beforeSend: () => {
-                    $("#loginForm .btn").html('<img src="../Controlador/assets/img/loading.gif" style="height: 10px;" alt="logo">');
+                    $("#loginForm .btn").html('<img src="../Controlador/assets/img/loading.gif" style="height: 10px;" alt="loading">');
                 },
                 success: function (response) {
                     showSuccessFeedback("password");
@@ -280,7 +275,7 @@ function editSelectedUserInfo(id) {
 
 function fillUserFormWithUserInfoFromDataBase(id, modalTitle) {
     resetUserForm();
-    $(".modal-title").html(modalTitle);
+    $("#userFormModal .modal-title").html(modalTitle);
     //reset check boxes
     $(".form-check-input").prop("checked", false);
     findUserByIdAndFillDOMlElements(id);
@@ -310,28 +305,36 @@ function findUserByIdAndFillDOMlElements(id) {
 
 }
 
-function deleteUser(id) {
-    var r = confirm("¿Borrar el usario?");
-    if (r == true) {
-        $.ajax({
-            url: DELETE_ONE_URL_USERS_VIEW,
-            type: 'POST',
-            data: {
-                id: id
-            },
-            beforeSend: () => { },
-            success: function (response) {
-                console.log(response);
-                showSucessAlert(jsonParseResponse(response).message);
-                ajaxReloadUsersDatatable("usersTable");
-            },
-            error: error => {
-                console.log(error);
-                showDangerAlert(jsonParseResponse(error.responseText).message);
+$("#deleteButtonConfirmation").click(function () {
 
-            }
-        });
-    }
+    console.log("entro a delete en modal");
+    $.ajax({
+        url: DELETE_ONE_URL_USERS_VIEW,
+        type: 'POST',
+        data: {
+            id: $("#userToDelete").val()
+        },
+        beforeSend: () => { },
+        success: function (response) {
+            console.log(response);
+            showSucessAlert(jsonParseResponse(response).message);
+            ajaxReloadUsersDatatable("usersTable");
+        },
+        error: error => {
+            console.log(error);
+            showDangerAlert(jsonParseResponse(error.responseText).message);
+
+        }
+    });
+    $("#confirmationModal").modal('hide').fadeOut();
+}
+
+)
+
+function deleteUser(id) {
+    $("#userToDelete").val(id);
+    $("#confirmationModal").modal();
+
 
 }
 

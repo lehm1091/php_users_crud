@@ -64,7 +64,7 @@
                                 <input type="text" class="form-control " name="name" id="name" placeholder="">
                                 <small class="name-error-text text-danger"></small>
                             </div>
-                            <div  class="form-group lastname-form-group">
+                            <div class="form-group lastname-form-group">
                                 <label for="lastname">Apellido</label>
                                 <input type="text" class="form-control " name="lastname" id="lastname" placeholder="">
                                 <small class="lastname-error-text text-danger"></small>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar </button>
                                 </div>
                             </div>
                     </form>

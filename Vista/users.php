@@ -17,6 +17,7 @@ permitUsers();
 
     <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Controlador/assets/css/jquery-ui.min.css" />
     <link href="../Controlador/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
 
 
@@ -26,6 +27,24 @@ permitUsers();
 
 
     <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Vista/navBar.php'; ?>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="Confirm dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">¿Borrar Usuario?</h4>
+                </div>
+                <input id="userToDelete" hidden>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <input type="button" id="deleteButtonConfirmation" type="button" class="btn btn-danger" value="Borrar">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container">
         <div class="row">
@@ -102,6 +121,7 @@ permitUsers();
     <script src="../Controlador/assets/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script src="../Controlador/assets/js/dataTables.responsive.min.js" type="text/javascript"></script>
     <script src="../Controlador/assets/js/script.js" type="text/javascript"></script>
+
 
     <script>
         ///if role is only admin_role cant change super_role
