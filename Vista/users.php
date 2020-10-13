@@ -106,13 +106,13 @@ permitUsers();
     <script>
         ///if role is only admin_role cant change super_role
         if (<?php echo (isAdmin()  and !isSuperAdmin()) ? 1 : 0 ?>) {
-            $("#super-check-form-group").remove();
+            $(".super-check-form-group").remove();
         }
 
         ///if role is role_user can change only user_role
         if (<?php echo (isUser()  and !isAdmin() and !isSuperAdmin()) ? 1 : 0 ?>) {
-            $("#admin-check-form-group").remove();
-            $("#super-check-form-group").remove();
+            $(".admin-check-form-group").remove();
+            $(".super-check-form-group").remove();
             $("#nuevoUsuario").remove();
         }
         ///edit logged user info by id stored in session
@@ -140,8 +140,6 @@ permitUsers();
         $("#telnumber").keyup(function() {
             checkTelNumber("telnumber");
         });
-
-        
     </script>
 </body>
 
