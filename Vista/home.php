@@ -39,16 +39,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/EXAMEN_SISTEMAS/Controlador/authoriza
             <div class="col">
 
                 <h2>¡Hola!</h2>
-                <p>Aqui esta un resumen de su informacion</p>
                 <p class="lead">
                     <p class="text-success "> Usted Inicio sesion el <b id="last_seen"> <?php echo getLastSeen() ?></b>
 
                     </p>
                 </p>
-
-
-
-
+                <p> Y aqui esta un resumen de su informacion:</p>
                 <div class="well">
                     <label class=" control-label">Email</label>
                     <p class="tab" id="email"></p>
